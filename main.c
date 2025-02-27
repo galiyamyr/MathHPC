@@ -1,20 +1,34 @@
-#include "linked_list.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "node.h"  
 
 int main() {
-    node* head = NULL;
-    int num_nodes = 3;  
+    node* top = NULL;  // Initialize the stack as empty
+    int option;
 
-    // Generate and print the linked list
-    GenerateList(&head, num_nodes);
-    PrintList(head);
-    char target = 'B';
-    int position = SearchList(head, target);
+    // Display options first
+    DisplayOptions();
 
-    if (position != -1) {
-        printf("The letter '%c' was found at position %d.\n", target, position);
-    } else {
-        printf("The letter '%c' was not found in the list.\n", target);
+    // Loop until user chooses to exit
+    while (1) {
+        // Query user for an option
+        option = QueryOption();
+
+        // If the user selects 6, exit the loop
+        if (option == 6) {
+            printf("Exiting program...\n");
+            break;
+        }
+
+        // Execute the chosen option
+        ExecuteOption(option, &top);
+
+        // Optionally, re-display the menu after each action
+        DisplayOptions();
     }
+
+    // Clean up stack before exiting
+    DeleteStack(&top);
 
     return 0;
 }

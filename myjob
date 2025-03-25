@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#SBATCH --partition=instruction    # Use the instruction partition
+#SBATCH --nodes=1   # Number of nodes to use
+#SBATCH --ntasks-per-node=16   # Use 16 processor cores per node
+#SBATCH --time=0-8:0:0   # Walltime limit (DD-HH:MM:SS)
+#SBATCH --output=slurm-%j.out  # Output log
+
+# Load modules
+module purge
+module load gcc
+
+# Define input parameters
+N=100000   # Vector size
+k=5        # Exponent limit
+
+# Define a single output file
+OUTPUT_FILE="vector_output.txt"
+echo "Thread Count | Execution Time (seconds)" > $OUTPUT_FILE
+
+# Run the program with different thread counts
+for threads in 1 2 4 8 16
+do
+    export OMP_NUM_THREADS=$threads
+    echo "Running with $threads threads..."
+    echo -n "$threads | " >> $OUTPUT_FILE  # Print thread count without a newline
+    ./vector2 $threads $N $k >> $OUTPUT_FILE  # Append program output
+done
+
+echo "Execution completed. Check $OUTPUT_FILE for results."
+

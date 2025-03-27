@@ -1,31 +1,30 @@
 #!/bin/bash
 
-#SBATCH --partition=instruction    # Use the instruction partition
-#SBATCH --nodes=1   # Number of nodes to use
-#SBATCH --ntasks-per-node=16   # Use 16 processor cores per node
-#SBATCH --time=0-8:0:0   # Walltime limit (DD-HH:MM:SS)
-#SBATCH --output=slurm-%j.out  # Output log
+# Job script for running Simpson's Rule using OpenMP on Nova
 
-# Load modules
-module purge
-module load gcc
+#SBATCH --partition=instruction       # Use the instruction partition
+#SBATCH --nodes=1                     # Number of nodes to use
+#SBATCH --ntasks-per-node=16          # Use 16 processor cores per node
+#SBATCH --time=0-8:0:0                # Walltime limit (DD-HH:MM:SS)
+#SBATCH --output=slurm-%j.out         # Output file (job ID will be appended)
 
-# Define input parameters
-N=100000   # Vector size
-k=5        # Exponent limit
+# Load necessary modules
+module purge                          # Clear loaded modules (to avoid conflicts)
+module load gcc                       # Load GCC module (make sure the compiler is available)
 
-# Define a single output file
-OUTPUT_FILE="vector_output.txt"
-echo "Thread Count | Execution Time (seconds)" > $OUTPUT_FILE
+# Define the input parameters for Simpson's Rule
+LOWER_LIMIT=0
+UPPER_LIMIT=3.1415926535
+N_POINTS=1000000
 
-# Run the program with different thread counts
+# Loop through different thread counts and run the program
 for threads in 1 2 4 8 16
 do
-    export OMP_NUM_THREADS=$threads
-    echo "Running with $threads threads..."
-    echo -n "$threads | " >> $OUTPUT_FILE  # Print thread count without a newline
-    ./vector2 $threads $N $k >> $OUTPUT_FILE  # Append program output
+    export OMP_NUM_THREADS=$threads   # Set the number of OpenMP threads
+    echo "Running with $threads threads..."  # Output the thread count being used
+
+    # Run the Simpson's Rule program with the given parameters and append output to the file
+    ./simpsons $LOWER_LIMIT $UPPER_LIMIT $N_POINTS >> output.txt
 done
 
-echo "Execution completed. Check $OUTPUT_FILE for results."
 

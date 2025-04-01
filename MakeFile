@@ -1,0 +1,30 @@
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -std=c99
+
+# Output executable
+OUTPUT = linked_list_program
+
+# Source files
+SRC = main.c generatelist.c print_list.c SearchList.c linked_list.c
+
+# Object files (replace .c with .o)
+OBJ = $(SRC:.c=.o)
+
+# Default target
+all: $(OUTPUT)
+
+# Rule to link object files into the executable
+$(OUTPUT): $(OBJ)
+	$(CC) $(OBJ) -o $(OUTPUT)
+
+# Rule to compile .c files into .o files
+%.o: %.c linked_list.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean up build files
+clean:
+	rm -f $(OBJ) $(OUTPUT)
+
+# Rebuild everything
+re: clean all

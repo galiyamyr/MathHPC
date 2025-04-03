@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Job Submission Script for Adaptive Integration
+
+#SBATCH --partition=instruction    # Use the instruction partition
+#SBATCH --nodes=1                  # Number of nodes to use
+#SBATCH --ntasks-per-node=16        # Use 16 processor cores per node 
+#SBATCH --time=0-8:0:0              # Walltime limit (DD-HH:MM:SS)
+#SBATCH --output=slurm-%j.out       # Output file
+#SBATCH --error=slurm-%j.err        # Error file
+
+# Load necessary modules (if needed)
+module load gcc/11.2.0  # Example: Load GCC if required
+
+# Compile the program (if not already compiled)
+gcc -o adaptive_int main.c -fopenmp -lm
+
+# Run the program with different thread counts
+echo "Running Adaptive Integration..."
+for t in  2 3 ; do
+    echo "Threads: $t"
+    ./adaptive_int $t 1e-6
+done
+
+echo "Job Finished!"
+

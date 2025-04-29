@@ -1,0 +1,47 @@
+Loading compiler version 2022.2.1
+Loading tbb version 2021.7.1
+Loading compiler-rt version 2022.2.1
+Loading oclfpga version 2022.2.1
+  Load "debugger" to debug DPC++ applications with the gdb-oneapi debugger.
+  Load "dpl" for additional DPC++ APIs: https://github.com/oneapi-src/oneDPL
+Removing compiler-rt version 2022.2.1
+Use `module list` to view any remaining dependent modules.
+Loading compiler-rt version 2022.2.1
+Loading advisor version 2022.3.1
+Loading ccl version 2021.7.1
+Loading dal version 2021.7.1
+Loading debugger version 2021.7.1
+Loading dnnl version 2022.2.1
+Loading mkl version 2022.2.1
+Loading mpi version 2021.7.1
+Removing tbb version 2021.7.1
+Use `module list` to view any remaining dependent modules.
+Loading tbb version 2021.7.1
+Loading vtune version 2022.4.1
+Loading itac version 2021.7.1
+Loading inspector version 2022.3.1
+Loading dpl version 2021.7.2
+Removing mpi version 2021.7.1
+Use `module list` to view any remaining dependent modules.
+Loading mpi version 2021.7.1
+Compiling...
+Running with 1 processors
+export TMOUT=5400
+export TMPDIR=/scratch/galiyam/6316308
+export PTMPDIR=/scratch/galiyam/6316308/ptmp
+Execution time: 0.250 sec
+Running with 2 processors
+export TMOUT=5400
+export TMPDIR=/scratch/galiyam/6316308
+export PTMPDIR=/scratch/galiyam/6316308/ptmp
+Execution time: 0.623 sec
+Running with 4 processors
+export TMOUT=5400
+export TMPDIR=/scratch/galiyam/6316308
+export PTMPDIR=/scratch/galiyam/6316308/ptmp
+Execution time: 0.316 sec
+Running with 8 processors
+export TMOUT=5400
+export TMPDIR=/scratch/galiyam/6316308
+export PTMPDIR=/scratch/galiyam/6316308/ptmp
+Execution time: 0.164 sec
